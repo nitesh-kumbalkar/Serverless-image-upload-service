@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"            # Edge port
+    environment:
+      - SERVICES=s3,dynamodb,lambda,apigateway
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - "./.localstack:/var/lib/localstack"
