@@ -1,9 +1,10 @@
-📸 Serverless Image Upload Service
+# Serverless Image Upload Service
+
 A scalable, serverless backend service for an Instagram-like application. This module handles image uploads, storage, and metadata management using Python, AWS Lambda, S3, and DynamoDB.
 
 The development environment is fully containerized using LocalStack to emulate AWS services locally.
 
-🏗 Architecture
+## Architecture
 Language: Python 3.7+
 
 Compute: AWS Lambda (Stateless execution)
@@ -14,8 +15,7 @@ Database: Amazon DynamoDB (Stores metadata: User ID, Tags, Timestamps)
 
 Local Emulation: LocalStack (Docker)
 
-📂 Project Structure
-Plaintext
+## Project Structure
 
 .
 ├── docker-compose.yml    # Configuration for LocalStack (S3, DynamoDB, Lambda)
@@ -24,7 +24,8 @@ Plaintext
 ├── tests/test_service.py       # Integration Tests (Pytest)
 ├── requirements.txt      # Python dependencies
 └── README.md             # Project Documentation
-🚀 Getting Started
+
+## Getting Started
 Prerequisites
 Python 3.7+
 
