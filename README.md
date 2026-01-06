@@ -33,48 +33,51 @@ Docker & Docker Compose
 
 pip (Python Package Manager)
 
-1. Environment Setup
+### 1. Environment Setup
 Clone the repository and create a virtual environment:
 
 Bash
 
-# Create virtual environment
+## Create virtual environment
 python -m venv venv
 
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# Mac/Linux:
-source venv/bin/activate
-2. Install Dependencies
+### Activate virtual environment
+
+#### Mac/Linux:
+``` source venv/bin/activate ```
+
+### 2. Install Dependencies
 Bash
 
-pip install boto3 pytest
-3. Start Local Infrastructure
+``` pip install boto3 pytest ```
+
+### 3. Start Local Infrastructure
 Start LocalStack to emulate AWS services on your machine. This runs on port 4566.
 
 Bash
 
-docker-compose up -d
-4. Initialize Resources
+``` docker-compose up -d ```
+
+### 4. Initialize Resources
 Run the initialization script to create the S3 Bucket (instagram-images-local) and the DynamoDB Table (InstagramMetadata).
 
 Bash
 
-python resources/init_resources.py
+``` python resources/init_resources.py```
+
 Expected Output:
 
 Plaintext
 
 ✅ Bucket 'instagram-images-local' created.
 ✅ Table 'InstagramMetadata' created.
-🧪 Running Tests
+
+## Running Tests
 The project uses pytest for integration testing. These tests interact with the running LocalStack container to simulate real-world API calls, storage, and database queries.
 
-Bash
+```pytest tests/test_service.py -v```
 
-pytest tests/test_service.py -v
-📡 API Documentation
+## API Documentation
 Since this is a Lambda-based service, the functions in service.py act as handlers. Below are the contracts for the API endpoints.
 
 1. Upload Image
@@ -88,11 +91,13 @@ Request Body:
 
 JSON
 
+```
 {
   "user_id": "john_doe",
   "image_data": "<base64_string>",
   "category": "travel"
 }
+```
 2. List Images
 Function: list_images
 
@@ -116,11 +121,12 @@ Behavior: Returns a Presigned URL allowing direct, secure access to S3 for a lim
 Response:
 
 JSON
-
+```
 {
   "download_url": "http://localhost:4566/...",
   "metadata": { ... }
 }
+```
 4. Delete Image
 Function: delete_image
 
@@ -131,12 +137,13 @@ Behavior: Removes the file from S3 and the entry from DynamoDB.
 Request Body:
 
 JSON
-
+```
 {
   "user_id": "john_doe",
   "image_id": "unique-uuid-123"
 }
-⚙️ scalability Design Notes
+```
+## scalability Design Notes
 DynamoDB Schema: Uses user_id as the Partition Key for efficient user lookups. A Global Secondary Index (GSI) is used for querying by category.
 
 S3 Offloading: The API does not serve binary files. It generates Presigned URLs, offloading the bandwidth load to S3.
