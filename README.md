@@ -38,7 +38,7 @@ Clone the repository and create a virtual environment:
 
 Bash
 
-## Create virtual environment
+### Create virtual environment
 python -m venv venv
 
 ### Activate virtual environment
@@ -143,7 +143,7 @@ JSON
   "image_id": "unique-uuid-123"
 }
 ```
-## scalability Design Notes
+## Scalability Design Notes
 DynamoDB Schema: Uses user_id as the Partition Key for efficient user lookups. A Global Secondary Index (GSI) is used for querying by category.
 
 S3 Offloading: The API does not serve binary files. It generates Presigned URLs, offloading the bandwidth load to S3.
